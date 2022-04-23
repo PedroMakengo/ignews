@@ -1,18 +1,17 @@
-import Document from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
-export class MyDocument extends Document {
+export default class MyDocument extends Document {
   render() {
     return (
-      <html lang="en">
-        <head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <title>Document</title>
-        </head>
-        <body></body>
-      </html>
+      <Html>
+        <Head>
+          <title>ig.news</title>
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
     );
   }
 }
