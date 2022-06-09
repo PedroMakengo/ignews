@@ -22,9 +22,8 @@ export const config = {
 
 const relevantEvent = new Set([
   "checkout.session.completed",
-  "customer.subscriptions.created",
-  "customer.subscriptions.updated",
-  "customer.subscriptions.deleted",
+  "customer.subscription.updated",
+  "customer.subscription.deleted",
 ]);
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -50,15 +49,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (relevantEvent.has(type)) {
       try {
         switch (type) {
-          case "customer.subscriptions.created":
-          case "customer.subscriptions.updated":
-          case "customer.subscriptions.deleted":
+          case "customer.subscription.updated":
+          case "customer.subscription.deleted":
             const subscription = event.data.object as Stripe.Subscription;
 
             await saveSubscription(
               subscription.id,
-              subscription.customer.toString(),
-              type === "customer.subscriptions.created"
+              subscription.customer.toString()
             );
             break;
           case "checkout.session.completed":
